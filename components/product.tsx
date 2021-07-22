@@ -127,7 +127,7 @@ cursor: pointer;
 `;
 
 
-function Product() {  
+function Product(props:{data:any}) {  
   return (
     <>
       <Container>

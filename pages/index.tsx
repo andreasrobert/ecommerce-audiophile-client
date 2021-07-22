@@ -8,7 +8,12 @@ import WhatIsAudiophile from '../components/whatIsAudiophile'
 import Category from '../components/category'
 import Test from '../components/test'
 
+
+
 export default function Home() {
+
+  
+
   return (
     <>
     {/* <div className={styles.container}> */}

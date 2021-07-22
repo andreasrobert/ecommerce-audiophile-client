@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
+import { useQuery, gql } from '@apollo/client';
+import { LOAD_PRODUCT, LOAD_FOR_CATEGORY } from '../graphql/queries';
 
 
 const Container = styled.div`
@@ -121,8 +123,20 @@ const ThirdImg = styled.div`
 
 
 function ProductDetail() {  
+
+  // const { loading, error, data } = useQuery(LOAD_FOR_CATEGORY,{ variables: {productsbyCategoryCategory: "headphones"}});
+
+  // if (loading) return null;
+  // if (error) return `Error! ${error}`;
+
+  // console.log(data.productsbyCategory[1]);
+  // useEffect(() => {
+  //   console.log(data);
+  // }, [data])
+
   return (
     <>
+    {/* {data.productsbyCategory.map(()=> console.log('a'))} */}
       <Container>
         <ContainerUp>
           <Features>
