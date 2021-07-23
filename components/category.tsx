@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from '../styles/Home.module.css';
 import headphoneImg from '../public/assets/desktop/image-headphones.png';
 import speakerImg from '../public/assets/desktop/image-speakers.png';
@@ -53,7 +54,7 @@ transition: transform 250ms;
 
 }
 
-@media (max-width:194vh) and (min-width: 500px){
+@media (max-width:194vh) and (min-width: 501px){
 /* background-color: blue; */
 width:31%;
 height: 18vw ;
@@ -88,7 +89,7 @@ margin: -2.5vh 0 2vh 0;
 
 }
 
-@media (max-width:194vh) and (min-width: 500px){
+@media (max-width:194vh) and (min-width: 501px){
 font-size: 2vw !important;
 margin: 1.5vw 0 1.5vw 0;
 &.shop{
@@ -140,6 +141,7 @@ function Category() {
   return (
     <>
       <Container>
+          <Link href="/category/headphones" passHref>
         <Box id="left">
             <ImageWrapper id="leftImg">
             <Image src={headphoneImg} alt=""  ></Image>
@@ -150,7 +152,9 @@ function Category() {
             <svg width="8" height="12" xmlns="http://www.w3.org/2000/svg"><path d="M1.322 1l5 5-5 5" stroke="#D87D4A" strokeWidth="2" fill="none" fillRule="evenodd"/></svg>
             </Contain>
         </Box>
+        </Link>
         
+        <Link href="/category/speakers" passHref>
         <Box id="mid">
         <ImageWrapper id="midImg">
             <Image src={speakerImg} alt="" ></Image>
@@ -162,6 +166,9 @@ function Category() {
             <svg width="8" height="12" xmlns="http://www.w3.org/2000/svg"><path d="M1.322 1l5 5-5 5" stroke="#D87D4A" strokeWidth="2" fill="none" fillRule="evenodd"/></svg>
             </Contain>
         </Box>
+        </Link>
+        
+        <Link href="/category/earphones" passHref>
         <Box id="right">
         <ImageWrapper id="rightImg">
             <Image src={earphoneImg} alt="" ></Image>
@@ -173,6 +180,8 @@ function Category() {
             <svg width="8" height="12" xmlns="http://www.w3.org/2000/svg"><path d="M1.322 1l5 5-5 5" stroke="#D87D4A"  strokeWidth="2" fill="none" fillRule="evenodd"/></svg>
             </Contain>
         </Box>
+        </Link>
+
       </Container>
     </>
   );

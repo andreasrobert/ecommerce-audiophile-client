@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import logoImg from '../public/assets/desktop/logo.svg'
+import Link from 'next/link';
 
 
 const Container = styled.div`
@@ -127,8 +128,10 @@ function Footer() {
       <Container>
       <ContainUp>
         <div className={styles.centerMeVertical}>
-        <Image src={logoImg} alt="" width="143" height="25" />
-        </div>
+        <Link href="/" passHref>
+          <Image src={logoImg} alt="" width="143" height="25" className={`${styles.pointMe}`}/>
+          </Link>        
+          </div>
         <ContainRight>
           <Header className="start">HOME</Header>
           <Header>HEADPHONES</Header>

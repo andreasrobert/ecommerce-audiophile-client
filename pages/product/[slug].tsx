@@ -1,28 +1,30 @@
 import Navbar from "../../components/navbar";
-import Title from "../../components/title";
 import Category from "../../components/category";
 import Footer from "../../components/footer";
 import Product from "../../components/product";
 import WhatIsAudiophile from "../../components/whatIsAudiophile";
+import Price from "../../components/price";
+import ProductDetail from "../../components/productDetail";
+import { useRouter } from 'next/router'
 
 import { useQuery } from "@apollo/client";
-import { LOAD_FOR_CATEGORY } from '../../graphql/queries';
+import { LOAD_PRODUCT_DETAIL } from '../../graphql/queries';
   
   
-const Headphones = () =>{
+const Detail = () =>{
+    const router = useRouter()
+    const  pid  = router.query
     
-    const { loading, error, data } = useQuery(LOAD_FOR_CATEGORY,{ variables: {Category: "headphones"}});
+    const { loading, error, data } = useQuery(LOAD_PRODUCT_DETAIL,{ variables: {Slug: pid.slug }});
     if (loading) return null;
     if (error) return `Error! ${error}`;
-    var order = 0; 
+ 
     return(
         <>
                 <Navbar></Navbar>
-                <Title title="HEADPHONES"></Title>
-                {data.productsbyCategory.map((product:any)=>{
-                    order = order+1;
-                    return <Product key={product._id} data={product} order={order}></Product>
-                })}
+                <Price data={data.productsbyId[0]}></Price>
+                <ProductDetail data={data.productsbyId[0]}></ProductDetail>
+             
                 <Category></Category>
                 <WhatIsAudiophile></WhatIsAudiophile>
                 <Footer></Footer>
@@ -30,4 +32,4 @@ const Headphones = () =>{
     );
 }
 
-export default Headphones;
+export default Detail;

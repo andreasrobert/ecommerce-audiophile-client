@@ -3,10 +3,6 @@ import styled from 'styled-components';
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
-import { useQuery, gql } from '@apollo/client';
-import { LOAD_PRODUCT, LOAD_FOR_CATEGORY } from '../graphql/queries';
-
-
 const Container = styled.div`
 background-color: white;
 padding: 7rem 7.5vw 2.5rem 7.5vw;
@@ -122,39 +118,33 @@ const ThirdImg = styled.div`
 `;
 
 
-function ProductDetail() {  
-
-  // const { loading, error, data } = useQuery(LOAD_FOR_CATEGORY,{ variables: {productsbyCategoryCategory: "headphones"}});
-
-  // if (loading) return null;
-  // if (error) return `Error! ${error}`;
-
-  // console.log(data.productsbyCategory[1]);
-  // useEffect(() => {
-  //   console.log(data);
-  // }, [data])
+function ProductDetail(props:{data:any}) {  
 
   return (
     <>
-    {/* {data.productsbyCategory.map(()=> console.log('a'))} */}
       <Container>
         <ContainerUp>
           <Features>
             <Header>FEATURES</Header>
             <Details>
-            Featuring a genuine leather head strap and premium earcups, these headphones deliver superior comfort for those who like to enjoy endless listening. It includes intuitive controls designed for any situation. Whether you’re taking a business call or just in your own personal space, the auto on/off and pause features ensure that you’ll never miss a beat.\n\n <br/><br/>   The advanced Active Noise Cancellation with built-in equalizer allow you to experience your audio world on your terms. It lets you enjoy your audio in peace, but quickly interact with your surroundings when you need to. Combined with Bluetooth 5. 0 compliant connectivity and 17 hour battery life, the XX99 Mark II headphones gives you superior sound, cutting-edge technology, and a modern design aesthetic.
+              {props.data.features}
             </Details>
             </Features>
           <TheBox>
             <Header>IN THE BOX</Header>
-            <Accessory>
-               <Numbers>2X</Numbers>
-               Headphone Unit
-               </Accessory>
-               <Accessory>
-               <Numbers>2X</Numbers>
-               Headphone Unit
-               </Accessory>
+            
+            {props.data.includes.map((stats:any)=>{
+                    return (
+                      <>
+                     <Accessory key={stats.item}>
+                     <Numbers key={`${stats.item}-number`}>{stats.quantity}x</Numbers>
+                      {stats.item}
+                      </Accessory>          
+                      </>
+                    
+                  );
+                })}
+
           </TheBox>
         </ContainerUp>
 
@@ -162,37 +152,37 @@ function ProductDetail() {
           <LeftImg>
             <FirstImg>
             <div className={`${styles.desktop} ${styles.imgBorder}`}>
-            <Image src={require("../public/assets/desktop/image-gallery-1 - test.jpg")} alt="" layout="responsive" height="300"></Image>
+            <Image src={props.data.gallery.first.desktop} alt="" layout="responsive" width="445 " height="280"></Image>
             </div>
             <div className={`${styles.tablet} ${styles.imgBorder}`}>
-            <Image src={require("../public/assets/desktop/image-gallery-1 - test.jpg")} alt="" layout="responsive" height="297"></Image>
+            <Image src={props.data.gallery.first.tablet} alt="" layout="responsive" width="554" height="348"></Image>
             </div>
             <div className={`${styles.mobile} ${styles.imgBorder}`}>
-            <Image src={require("../public/assets/desktop/image-gallery-1 - test.jpg")} alt="" layout="responsive" height="300"></Image>
+            <Image src={props.data.gallery.first.mobile} alt="" width="654 " height="348"></Image>
             </div>
             </FirstImg>
             <SecondImg>
             <div className={`${styles.desktop} ${styles.imgBorder}`}>
-            <Image src={require("../public/assets/desktop/image-gallery-2 - test.jpg")} alt="" layout="responsive" height="300"></Image>
+            <Image src={props.data.gallery.second.desktop} alt="" layout="responsive" width="445" height="280"></Image>
             </div>
             <div className={`${styles.tablet} ${styles.imgBorder}`}>
-            <Image src={require("../public/assets/desktop/image-gallery-2 - test.jpg")} alt="" layout="responsive" height="300"></Image>
+            <Image src={props.data.gallery.second.tablet} alt="" width="554" height="348"></Image>
             </div>
             <div className={`${styles.mobile} ${styles.imgBorder}`}>
-            <Image src={require("../public/assets/desktop/image-gallery-2 - test.jpg")} alt="" layout="responsive" height="300"></Image>
+            <Image src={props.data.gallery.second.mobile} alt="" width="654 " height="348"></Image>
             </div>
             </SecondImg>
           </LeftImg>
           <RightImg>
             <ThirdImg>
             <div className={`${styles.desktop} ${styles.imgBorder}`}>
-            <Image src={require("../public/assets/desktop/image-gallery-3 - test.jpg")} alt="" layout="responsive" height="562"></Image>
+            <Image src={props.data.gallery.third.desktop} alt="" layout="responsive" width="635" height="526"></Image>
             </div>
             <div className={`${styles.tablet} ${styles.imgBorder}`}>
-            <Image src={require("../public/assets/desktop/image-gallery-3 - test.jpg")} alt="" layout="responsive" height="555"></Image>
+            <Image src={props.data.gallery.third.tablet} alt="" layout="responsive" width="790" height="651"></Image>
             </div>
             <div className={`${styles.mobile} ${styles.imgBorder}`}>
-            <Image src={require("../public/assets/desktop/image-gallery-3 - test.jpg")} alt="" layout="responsive" height="599"></Image>
+            <Image src={props.data.gallery.third.mobile} alt="" layout="responsive" width="654" height="736"></Image>
             </div>
             </ThirdImg>
           </RightImg>

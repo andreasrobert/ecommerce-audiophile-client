@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import Link from 'next/link';
-import introImg from '../public/assets/home/desktop/image-hero.jpg'
 
 const Container = styled.div`
 background-color: transparent;
@@ -32,8 +31,6 @@ padding-left: 7.5vw;
 display: flex;
 flex-direction: column;
 justify-content: center;
-
-
 @media (max-width: 920px) {
   width:100%;
   align-items: center;
@@ -43,17 +40,7 @@ justify-content: center;
 
 `;
 
-const TagLine= styled.div`
-font-weight: 500;
-letter-spacing: 1vh;
-color: white;
-padding-bottom: 1.5vh;
-@media (max-width: 920px) {
-  text-align:center;
-  margin-right:-1vh;
-  }
 
-`;
 
 const Header = styled.div`
 font-weight: 700;
@@ -86,8 +73,6 @@ font-size: clamp(1.4vh,1.5vw,2vh);
   text-align: center;
 
   }
-
-
 `;
 
 const Button = styled.div`
@@ -106,37 +91,20 @@ cursor: pointer;
 `;
 
 const Container2nd= styled.div`
-top: 0px;
-position: absolute;
-width: 100%;
-height: calc(79vh + 85px );
-display: flex;
-align-items: flex-end;
+
 `;
 
 
 
-function Intro() {  
+function HomeMiddle() {  
   return (
     <>
       <Container>
-      <Text >
-        <TagLine>NEW PRODUCT</TagLine>
-          <Header>XX99 MARK II HEADPHONES</Header>
-          <Details>Experience natural, lifelike audio and exceptional build quality made for the passionate music enthusiast.</Details>
-          <Link href={`/product/`} passHref>
-          <Button> SEE PRODUCT</Button>       
-          </Link>
-        </Text>
-
-        <Container2nd>
-        {/* <Image src={introImg} alt="" layout="fixed" ></Image> */}
-        <div className={styles.intro} />
-        </Container2nd>
+      
 
       </Container>
     </>
   );
 }
 
-export default Intro;
+export default HomeMiddle;

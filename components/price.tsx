@@ -12,7 +12,7 @@ const Container = styled.div`
 background-color: white;
 padding: 7rem 7.5vw 2.5rem 7.5vw;
 display: flex;
-@media (max-width: 920px) {
+@media (max-width: 500px) {
    flex-direction: column;
    align-items: center;
    
@@ -35,16 +35,14 @@ const Picture = styled.div`
 background-position: center;
 background-repeat: no-repeat;
 background-size: cover; */
-background-color: #F1F1F1;
 width:50%;
 height: 43.5vw;
-padding: 10px;
-border-radius: 10px;
 @media (max-width: 920px) {
-  width:100% ;
+  height: 100%;
   }
+
 @media (max-width: 500px) {
-  height: 87vw;
+  width:100% ;
   }
 
 `;
@@ -58,7 +56,7 @@ padding-left: 10%;
 display: flex;
 flex-direction: column;
 justify-content: center;
-@media (max-width: 920px) {
+@media (max-width: 500px) {
   width:100%;
   align-items: center;
   padding: 0px;
@@ -70,7 +68,7 @@ font-weight: 500;
 letter-spacing: 1vh;
 color: #D87D4A;
 padding-bottom: 1.5vh;
-@media (max-width: 920px) {
+@media (max-width: 500px) {
   text-align:center;
   margin-right:-1vh;
   }
@@ -87,10 +85,10 @@ padding-bottom: 2vh;
 font-size: clamp(3vh,4vw,6vh);
 @media (max-width: 920px) {
   width:55%;
-  text-align: center;
   }
 @media (max-width: 500px) {
   width:75%;
+  text-align: center;
   }
 
 `;
@@ -104,8 +102,10 @@ font-size: 2vh;
 font-size: clamp(1.4vh,1.5vw,2vh);
 @media (max-width: 920px) {
   width:80%;
-  text-align: center;
+  }
 
+@media (max-width: 500px) {
+  text-align: center;
   }
 
 
@@ -166,7 +166,9 @@ const Minus= styled.div`
   }
 `;
 
-function Product() {  
+function Product(props:{data:any}) {  
+
+
   return (
     <>
       <Container>
@@ -174,21 +176,21 @@ function Product() {
           {/* <Pic></Pic> */}
           {/* <div style={{ background: '' }} /> */}
           {/* <Image src={require(`../public/assets/desktop/${testImg1}`)} height="1110" alt="" layout="responsive"></Image> */}
-          <div className={styles.desktop}>
-          <Image src={testImgD} alt="" layout="responsive" height="1110"></Image>
+          <div className={`${styles.desktop} ${styles.imgBorder}`}>
+          <Image src={props.data.image.desktop} alt="" layout="responsive" width="1080" height="1120"></Image>
           </div>
-          <div className={styles.tablet}>
-          <Image src={testImgT} alt="" layout="responsive" height="676"></Image>
+          <div className={`${styles.tablet} ${styles.imgBorder}`}>
+          <Image src={props.data.image.tablet} alt="" layout="responsive" width="562" height="960"></Image>
           </div>
-          <div className={styles.mobile}>
-          <Image src={testImgM} alt="" layout="responsive" height="676"></Image>
+          <div className={`${styles.mobile} ${styles.imgBorder}`}>
+          <Image src={props.data.image.mobile} alt="" layout="responsive" width="676" height="676"></Image>
           </div>
           {/* <Image src="/assets/desktop/image-best-gear.jpg" alt="" layout="responsive"></Image> */}
         </Picture>
         <Text>
-          <TagLine>NEW PRODUCT</TagLine>
-          <Header>XX99 MARK II HEADPHONES</Header>
-          <Details>The new XX99 Mark II headphones is the pinnacle of pristine audio. It redefines your premium headphone experience by reproducing the balanced depth and precision of studio-quality sound.</Details>
+          <TagLine>{props.data.new? 'NEW PRODUCT' : ""}</TagLine>
+          <Header>{props.data.name.toUpperCase()}</Header>
+          <Details>{props.data.description}</Details>
           <div className={styles.flexMe}>
           <Counter>
             <Minus>-</Minus>

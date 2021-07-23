@@ -19,9 +19,7 @@ export default function Home() {
     {/* <div className={styles.container}> */}
       <Navbar></Navbar>
       <Intro></Intro>
-      <Test></Test>
       <Category></Category>
-      <Intro></Intro>
       <WhatIsAudiophile></WhatIsAudiophile>
       <Footer></Footer>
     {/* </div> */}
