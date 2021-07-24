@@ -37,6 +37,7 @@ export const LOAD_PRODUCT_DETAIL = gql`
             }
             slug
             name
+            cart
             image {
                 mobile
                 tablet

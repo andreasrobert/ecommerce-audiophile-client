@@ -146,3 +146,11 @@
 }
 
 
+.index{
+  position: absolute;
+  left: -4%;
+  /* z-index: ; */
+  @media (max-width: 920px){
+    left:40vw
+  }
+}

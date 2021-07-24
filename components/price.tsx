@@ -166,7 +166,29 @@ const Minus= styled.div`
   }
 `;
 
+
+
 function Product(props:{data:any}) {  
+  // const [cart, setCart] = useState({} as Record<string, number>)
+  // const productId = props.data.cart;
+  // const addToCart = (value: number) =>{
+  //   setCart({...cart, [productId]: value })
+  // }
+
+  const [demand, setDemand] = useState(1)
+
+  const handleCart = ()=>{
+    const existingCart = JSON.parse(window.localStorage.getItem('cart') || '{}')
+    const cartItem = {
+      // name: props.data.cart,
+      image: props.data.image.mobile,
+      price: props.data.price,
+      demand
+    }
+    const cart = { ...existingCart, [props.data.cart]: cartItem }
+    window.localStorage.setItem("cart", JSON.stringify(cart))
+    setDemand(1)
+  }
 
 
   return (
@@ -193,11 +215,11 @@ function Product(props:{data:any}) {
           <Details>{props.data.description}</Details>
           <div className={styles.flexMe}>
           <Counter>
-            <Minus>-</Minus>
-            1
-            <Plus>+</Plus>
+            <Minus onClick={()=>setDemand(demand-1 <= 1 ? 1:demand-1 )}>-</Minus>
+            {demand}
+            <Plus onClick={()=>setDemand(demand+1)}>+</Plus>
             </Counter>
-          <Button>ADD TO CART</Button>   
+          <Button onClick={handleCart}>ADD TO CART</Button>   
           </div>    
         </Text>
       </Container>

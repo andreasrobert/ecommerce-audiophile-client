@@ -6,8 +6,7 @@ import Intro from '../components/intro'
 import Footer from '../components/footer'
 import WhatIsAudiophile from '../components/whatIsAudiophile'
 import Category from '../components/category'
-import Test from '../components/test'
-
+import HomeMiddle from '../components/homeMiddle'
 
 
 export default function Home() {
@@ -20,6 +19,7 @@ export default function Home() {
       <Navbar></Navbar>
       <Intro></Intro>
       <Category></Category>
+      <HomeMiddle></HomeMiddle>
       <WhatIsAudiophile></WhatIsAudiophile>
       <Footer></Footer>
     {/* </div> */}
