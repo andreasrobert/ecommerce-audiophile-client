@@ -124,7 +124,7 @@ function Intro() {
         <TagLine>NEW PRODUCT</TagLine>
           <Header>XX99 MARK II HEADPHONES</Header>
           <Details>Experience natural, lifelike audio and exceptional build quality made for the passionate music enthusiast.</Details>
-          <Link href={`/product/`} passHref>
+          <Link href={`/product/xx99-mark-two-headphones`} passHref>
           <Button> SEE PRODUCT</Button>       
           </Link>
         </Text>

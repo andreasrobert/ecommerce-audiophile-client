@@ -276,7 +276,11 @@ function Navbar() {
   };
 
   
-  const [products,setProducts]= useState(JSON.parse(window.localStorage.getItem('cart') || '{}'))
+  const [products,setProducts]= useState({} as Record<string, any>)
+
+  useEffect(() => {
+    setProducts(JSON.parse(window.localStorage.getItem('cart') || '{}'));
+  }, [])
 
   const handleCart = () =>{
     setCart(prev => !prev);
@@ -386,8 +390,9 @@ function Navbar() {
           <Other className="total">TOTAL</Other>
           <Price className="total">${total}</Price>
           </MinorContainer>
-
+          <Link href={`/checkout`} passHref>
           <CheckOut>CHECKOUT</CheckOut>
+          </Link>
           </div>
         </Cart>
 

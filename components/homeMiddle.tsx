@@ -288,7 +288,7 @@ function HomeMiddle() {
       <Text>
           <Header>ZX9 SPEAKER</Header>
           <Details>Upgrade to premium speakers that are phenomenally built to deliver truly remarkable sound.</Details>
-          <Link href={`/product/`} passHref>
+          <Link href={`/product/zx9-speaker`} passHref>
           <Button> SEE PRODUCT</Button>       
           </Link>
         </Text>
@@ -296,16 +296,20 @@ function HomeMiddle() {
 
       <Mid>
         <Header className="mid">ZX7 SPEAKER</Header>
+        <Link href={`/product/zx7-speaker`} passHref>
         <Button className="mid">SEE PRODUCT</Button>
+        </Link>
       </Mid>
 
       <Down>
         <DownImg></DownImg>
         <DownText>
         <Header className="down">YX1 EARPHONES</Header>
+        <Link href={`/product/yx1-earphones`} passHref>
         <Button className="down">SEE PRODUCT</Button>
+        </Link>
         </DownText>
-      
+        
       </Down>
 
       </Container>
