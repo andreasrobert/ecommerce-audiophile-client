@@ -338,7 +338,9 @@ function Navbar() {
           <Image src={hamburgerImg} alt="" width="23.33" height="20" />
           </div>
           <Link href="/" passHref>
+            <div>
           <Image src={logoImg} alt="" width="143" height="25" className={`${styles.pointMe}`}/>
+          </div>
           </Link>
           <div className={`${styles.flexMe} ${styles.desktop}`}>
           <Link href="/" passHref><Header>HOME</Header></Link>
@@ -352,10 +354,7 @@ function Navbar() {
           </div>
         </Container2nd>
 
-        {/* {Object.keys(products).map(id => (
-          <div key={id}>{id}: {products[id].name}</div>
-        ))} */}
-
+    
         <Cart className={`${cart}`}>
           <div>
           <MinorContainer className="head">

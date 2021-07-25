@@ -40,7 +40,7 @@ margin-bottom: 10vh;
 const Mid = styled.div`
 z-index: 2;
 border-radius: 10px;
-background-image: url(https://res.cloudinary.com/img23/image/upload/v1626953338/audiophile/assets/home/desktop/image-speaker-zx7_hizcid.jpg);
+background-image: url('https://res.cloudinary.com/img23/image/upload/v1626953338/audiophile/assets/home/desktop/image-speaker-zx7_hizcid.jpg');
 background-repeat: no-repeat;
 background-size: cover;
 width: 100%;
@@ -48,11 +48,11 @@ padding-top: 28%;
 position: relative;
 margin-bottom: 10vh;
 @media (max-width: 920px) {
-  background-image: url(https://res.cloudinary.com/img23/image/upload/v1626953340/audiophile/assets/home/tablet/image-speaker-zx7_vbhiz7.jpg);
+  background-image: url('https://res.cloudinary.com/img23/image/upload/v1626953340/audiophile/assets/home/tablet/image-speaker-zx7_vbhiz7.jpg');
   padding-top: 46%;
   }
   @media (max-width: 500px) {
-  background-image: url(https://res.cloudinary.com/img23/image/upload/v1626953339/audiophile/assets/home/mobile/image-speaker-zx7_njnjep.jpg);
+  background-image: url('https://res.cloudinary.com/img23/image/upload/v1626953339/audiophile/assets/home/mobile/image-speaker-zx7_njnjep.jpg');
   padding-top: 98%;
   margin-bottom: 4vh;
 
@@ -229,18 +229,20 @@ justify-content: space-between;
 const DownImg = styled.div`
 background-color: yellow;
 border-radius: 10px;
-background-image: url(https://res.cloudinary.com/img23/image/upload/v1626953338/audiophile/assets/home/desktop/image-earphones-yx1_rdtj8v.jpg);
+
+background-image: url('https://res.cloudinary.com/img23/image/upload/v1626953338/audiophile/assets/home/desktop/image-earphones-yx1_rdtj8v.jpg');
 background-repeat: no-repeat;
 background-size: cover;
 width: 49%;
 padding-top: 29%;
 position: relative;
+
 @media (max-width: 920px) {
-  background-image: url(https://res.cloudinary.com/img23/image/upload/v1626953340/audiophile/assets/home/tablet/image-earphones-yx1_fyk7mh.jpg);
+  background-image: url('https://res.cloudinary.com/img23/image/upload/v1626953340/audiophile/assets/home/tablet/image-earphones-yx1_fyk7mh.jpg');
   padding-top: 47%;
   }
   @media (max-width: 500px) {
-  background-image: url(https://res.cloudinary.com/img23/image/upload/v1626953339/audiophile/assets/home/mobile/image-earphones-yx1_lxdas7.jpg);
+  background-image: url('https://res.cloudinary.com/img23/image/upload/v1626953339/audiophile/assets/home/mobile/image-earphones-yx1_lxdas7.jpg');
   padding-top: 62%;
   width: 100%;
   margin-bottom: 4vh;
@@ -269,10 +271,8 @@ function HomeMiddle() {
   return (
     <>
       <Container>
-      <Upper>
-      {/* <svg className={styles.index} width="944" height="944" xmlns="http://www.w3.org/2000/svg"><g stroke="#FFF" fill="none" fillRule="evenodd" opacity=".202"><circle cx="472" cy="472" r="235.5"/><circle cx="472" cy="472" r="270.5"/><circle cx="472" cy="472" r="471.5"/></g></svg> */}
-          {/* <Image src={circleImg} alt="" layout="fixed"></Image> */}
-
+       <Upper>
+     
         <Contain>
       <div className={`${styles.desktop} ${styles.imgBorder}`}>
             <Image src='https://res.cloudinary.com/img23/image/upload/v1626953339/audiophile/assets/home/desktop/image-speaker-zx9_afnie2.png' alt=""  width="756" height="918"></Image>
@@ -284,7 +284,6 @@ function HomeMiddle() {
             <Image src='https://res.cloudinary.com/img23/image/upload/v1626953339/audiophile/assets/home/desktop/image-speaker-zx9_afnie2.png' alt=""  width="756" height="918"></Image>
             </div>
       </Contain>
-      {/* <Text className="placeholder"></Text> */}
       <Text>
           <Header>ZX9 SPEAKER</Header>
           <Details>Upgrade to premium speakers that are phenomenally built to deliver truly remarkable sound.</Details>

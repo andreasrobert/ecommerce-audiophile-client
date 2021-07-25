@@ -127,11 +127,13 @@ function Footer() {
     <>
       <Container>
       <ContainUp>
-        <div className={styles.centerMeVertical}>
         <Link href="/" passHref>
+        <div className={styles.centerMeVertical}>
+
           <Image src={logoImg} alt="" width="143" height="25" className={`${styles.pointMe}`}/>
-          </Link>        
           </div>
+          </Link>        
+          
         <ContainRight>
           <Header className="start">HOME</Header>
           <Header>HEADPHONES</Header>

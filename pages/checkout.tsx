@@ -115,7 +115,7 @@ width: clamp(20vh, 26vw, 55vh);
 height: 7vh;
 background-color: white;
 border-radius: 10px;
-border: 1px solid black;
+border: 1.5px solid #ccc;
 padding-left: 13px;
 font-size: 2.4vh;
 
@@ -329,6 +329,92 @@ display: flex;
 flex-direction: column;
 `;
 
+
+const ItemRadio = styled.div`
+/* font-family: 'Manrope', sans-serif;; */
+  font-weight:700 ;
+  display: flex;
+  align-items: center;
+  width: clamp(20vh, 26vw, 55vh);
+  height: 7vh;
+  position: relative;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 10px;
+  margin-top: 1.5vh;
+  padding-left: 20px;
+  &.payment{
+margin-bottom: 2vh;
+margin-top: 3vh;
+}
+
+@media (max-width: 920px){
+    height: 6vh;
+    width: clamp(5vh, 33vw, 48vh);
+}
+
+@media (max-width: 720px){
+    width: 100%;
+    height: 5vh;
+    font-size: 1.5vh;
+    margin-top: 0.55vh !important;
+}
+
+`;
+
+const RadioButtonLabel = styled.label`
+  /* position: absolute;
+  top: 32%;
+  left: 20px; */
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid #ccc;
+  margin-right: 15px;
+
+`;
+const RadioButton = styled.input`
+  position: absolute;
+  opacity: 0;
+  z-index: 1;
+  cursor: pointer;
+  width: 35px;
+  height: 35px;
+  margin: 0 0 -4px -4px  !important; 
+  
+  &:hover ~ ${RadioButtonLabel} {
+    /* background: #ccc; */
+    &::after {
+      content: "";
+      display: block;
+      color: white;
+      width: 12px;
+      height: 12px;
+      /* margin: 4px; */
+    }
+  }
+  &:checked + ${Item} {
+    background: #D87D4A;
+    border: 2px solid #D87D4A;
+  }
+  &:checked + ${RadioButtonLabel} {
+    background: #D87D4A;
+    box-shadow: 0 0 0 1px #e78267;
+    border: 5px solid white;
+    &::after {
+      content: "";
+      display: block;
+      color: white;
+      width: 12px;
+      height: 12px;
+      /* margin: 4px; */
+    }
+  }
+`;
+
+
+
 export default function Checkout(props:{products:any}) {
 
     const [total, setTotal] = useState(0)
@@ -406,8 +492,32 @@ export default function Checkout(props:{products:any}) {
             <FlexEnd>
             <Header className="title">Payment Method</Header>
             <FlexCol>
-            <Input className="payment"></Input>
-            <Input></Input>
+            {/* <Input className="payment"></Input>
+            <Input></Input> */}
+
+<ItemRadio className="payment">
+        <RadioButton
+          type="radio"
+          name="radio"
+          value="optionA"
+        //   checked={select === "optionA"}
+        //   onChange={event => handleSelectChange(event)}
+        />
+        <RadioButtonLabel />
+        <div>e-Money</div>
+      </ItemRadio>
+      <ItemRadio>
+        <RadioButton
+          type="radio"
+          name="radio"
+          value="optionB"
+        //   checked={select === "optionB"}
+        //   onChange={event => handleSelectChange(event)}
+        />
+        <RadioButtonLabel />
+        <div>Cash on Delivery</div>
+      </ItemRadio>
+            
             </FlexCol>
             </FlexEnd>
 
