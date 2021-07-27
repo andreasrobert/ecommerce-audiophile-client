@@ -137,13 +137,19 @@ min-height: 490px;
 width: 377px;
 top: 110px;
 right: 7.5vw;
-position: fixed;
+position: absolute;
 padding: 28px;
 display: flex;
 flex-direction: column;
 justify-content: space-between;
 &.false{
     display:none;
+}
+@media (max-width:450px){
+  right:0px;
+  top:85px;
+  width: 100%;
+  
 }
 `;
 

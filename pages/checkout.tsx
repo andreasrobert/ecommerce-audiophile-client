@@ -4,6 +4,7 @@ import Footer from '../components/footer';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router'
 
 const Container = styled.div`
 padding-left: 7.5vw;
@@ -90,6 +91,12 @@ margin-top: 2.8vh;
 
 }
 
+&.thanks{
+  font-size: 4.5vh;
+  line-height: 38px;
+  letter-spacing: 1.4px;
+  margin-bottom: 8px;
+}
 @media (max-width: 720px){
     &.titlecheck{
         font-size: clamp(2.8vh, 8vw, 4.5vh);
@@ -202,6 +209,11 @@ color: #D87D4A;
 font-size: larger;
 }
 
+&.grandReceipt{
+color: white;
+font-size: larger;
+}
+
 @media (max-width: 720px){
     &.total, &.grand{
         font-size: large !important;
@@ -210,7 +222,7 @@ font-size: larger;
 `;
 
 
-const CheckOut = styled.div`
+const CheckOut = styled.input`
 background-color: #D87D4A;
 color: white;
 letter-spacing: 2.5px;
@@ -228,6 +240,10 @@ height: 43px;
 
 const Other = styled.div`
 color: black;
+&.receipt{
+  margin-bottom: 10px;
+}
+
 &.cart{
 font-weight: 700;
 font-size: larger;
@@ -242,6 +258,12 @@ font-size: larger;
 
 &.name{
   font-weight: 700;
+}
+
+&.totalReceipt{
+  font-weight: 400;
+  font-size: larger;
+  color: #808080;
 }
 
 @media (max-width: 720px){
@@ -414,15 +436,160 @@ const RadioButton = styled.input`
 `;
 
 
+const Receipt =styled.div`
+display: flex;
+flex-direction: column;
+color:black;
+z-index: 300;
+background-color: white;
+border-radius: 10px;
+min-height: 500px;
+width: 590px;
+top: 110px;
+position: absolute;
+left: 50%;
+transform: translate(-50%, 0);
+padding: 28px;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+&.false{
+    display:none;
+}
+@media (max-width:450px){
+  right:0px;
+  top:85px;
+  width: 100%;
+  
+}
+`;
+
+const Checkmark = styled.div`
+      display: inline-block;
+      transform: rotate(40deg);
+      height: 22px;
+      width: 12px;
+      border-bottom: 4px solid white;
+      border-right: 4px solid white;
+      margin-top: -5px;
+`;
+
+const Circle = styled.div`
+margin-bottom: 17px;
+background-color: #D87D4A;
+width: 55px;
+height: 55px;
+border-radius: 50%;
+display: flex;
+justify-content: center;
+align-items: center;
+`;
+
+const Back = styled.div`
+background-color: #D87D4A;
+color: white;
+letter-spacing: 2.5px;
+width: 100%;
+height: 55px;
+display: flex;
+justify-content: center;
+align-items: center;
+cursor: pointer;
+margin-top: 24px;
+@media (max-width: 720px){
+height: 43px;
+}
+`;
+
+const ReceiptContainer = styled.div`
+border-radius: 10px;
+min-height: 150px;
+background-color: white;
+display: flex;
+justify-content: space-between;
+position: relative;
+`;
+
+const Right= styled.div`
+display: flex;
+flex-direction: column;
+justify-content: flex-end;
+background-color: black;
+right:0px;
+width: 40%;
+height: 100%;
+top:0px;
+position: absolute;
+border-top-right-radius:10px ;
+border-bottom-right-radius:10px ;
+padding-left: 32px;
+padding-bottom: 30px;
+
+
+`;
+
+const Left= styled.div`
+background-color: #f1f1f1;
+width: 60%;
+min-height: 150px;
+border-top-left-radius:10px ;
+border-bottom-left-radius:10px ;
+padding-right: 18px;
+padding-left: 10px;
+
+display: flex;
+flex-direction: column;
+align-items: center;
+`;
+
+const ReceiptBackDrop = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0px;
+  right: 0px;
+
+  &.false{
+    display:none;
+}
+`;
+
+const View = styled.div`
+width:90%;
+height: 20px;
+border-top: 1px solid  black;
+margin-right: -8px;
+text-align: center;
+margin-bottom: 25px;
+`;
+
 
 export default function Checkout(props:{products:any}) {
 
     const [total, setTotal] = useState(0)
     const [products,setProducts]= useState({} as Record<string, any>)
+    const [popUpReceipt, setPopUpReceipt] = useState(true)
+
+    const router = useRouter()
+    const  pid  = router.query
+
+    
+
+    
 
     useEffect(() => {
       setProducts(JSON.parse(window.localStorage.getItem('cart') || '{}'));
-    }, [])
+      if(pid.foo === "success"){
+        console.log("hello")
+        setPopUpReceipt(true)
+        return
+      }
+    }, [pid.foo])
 
   let totNumb= 0;
   let amount = 0;
@@ -444,13 +611,60 @@ export default function Checkout(props:{products:any}) {
     setProducts(JSON.parse(window.localStorage.getItem('cart') || '{}'))
   };
 
-
+  let counter = 0;
 
   return (
     <>
         <div onClick={handleCart}>
       <Navbar></Navbar>
+      <ReceiptBackDrop className={`${popUpReceipt}`}></ReceiptBackDrop>
+      <Receipt className={`${popUpReceipt}`}>
+        <Circle>
+        <Checkmark></Checkmark>
+        </Circle>
+        <Header className="thanks">THANK YOU <br/> FOR YOUR ORDER</Header>
+        <Other className="receipt">You will receive an email confirmation shortly.</Other>
+        <ReceiptContainer>
+          <Left>
+          {Object.keys(products).forEach(id => {
+          counter = counter + 1;
+          return(
+          <Item key={id}>
+          <div className={`${styles.flexMe} ${styles.imgBorder}`}>
+          <Image src={products[id].image} alt="" width="64" height="64"></Image>
+          <MinorContainer className="item">
+          <Other className="name">{id}</Other>
+          <Price>${products[id].price}</Price>
+          </MinorContainer>
+          </div>
+              <Price>
+              {products[id].demand}x
+              </Price>
+          
+        </Item>
+        )})}
+
+
+          {(counter > 2) ? 
+          
+          <View>and {counter - 1} other item(s)</View>:""}
+
+
+
+          </Left>
+          <Right>
+          <Other className="totalReceipt">GRAND TOTAL</Other>
+          <Price className="grandReceipt">${grand}</Price>
+
+          </Right>
+
+        </ReceiptContainer>
+        <Back>BACK TO HOME</Back>
+
+      </Receipt>
       </div>
+
+      <form action="http://localhost:4000/checkout" method="post">
       <Container>
         <CheckIn>
             <Header className="titlecheck">CHECKOUT</Header>
@@ -458,34 +672,34 @@ export default function Checkout(props:{products:any}) {
             <Flex>
                 <div>
             <Header className="title">Name</Header>
-            <Input className="left"></Input>
+            <Input className="left" name="name" required></Input>
             </div>
             <div>
             <Header className="title">Email Address</Header>
-            <Input></Input>
+            <Input name="email" required></Input>
             </div>
             </Flex>
             
             <Header className="title">Phone Number</Header>
-            <Input></Input>
+            <Input name="phone" required></Input>
 
             <Header className="category">SHIPPING INFO</Header>
             <Header className="title">Address</Header>
-            <Input className="address"></Input>
+            <Input className="address" name="address" required></Input>
 
             <Flex>
                 <div>
             <Header className="title">ZIP Code</Header>
-            <Input className="left"></Input>
+            <Input className="left" name="zip-code" required></Input>
             </div>
             <div>
             <Header className="title">City</Header>
-            <Input></Input>
+            <Input name="city" required></Input>
             </div>
             </Flex>
 
             <Header className="title">Country</Header>
-            <Input></Input>
+            <Input name="country" required></Input>
 
 
             <Header className="category">PAYMENT DETAILS</Header>
@@ -522,10 +736,10 @@ export default function Checkout(props:{products:any}) {
             </FlexEnd>
 
             <Header className="title">e-Money Number</Header>
-            <Input></Input>
+            <Input name="e-number"></Input>
 
             <Header className="title">e-Money PIN</Header>
-            <Input></Input>
+            <Input name="e-pin"></Input>
 
 
 
@@ -572,7 +786,7 @@ export default function Checkout(props:{products:any}) {
           <Other className="total">GRAND TOTAL</Other>
           <Price className="grand">${grand}</Price>
           </MinorContainer>
-          <CheckOut>CONTINUE & PAY</CheckOut>
+          <CheckOut type="submit" value="CONTINUE & PAY"></CheckOut>
           </div>
                   </Cart>
                   
@@ -580,7 +794,7 @@ export default function Checkout(props:{products:any}) {
         </Summary>
 
       </Container>
-
+      </form>
       <Footer></Footer>
       <Background></Background>
     </>
