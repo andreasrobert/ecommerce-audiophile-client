@@ -124,7 +124,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   try {
     const res = await fetchRes.json();
-    console.log(res);
 
     if (res.result === false) {
       return {
@@ -163,7 +162,7 @@ const Login = () => {
     })
       .then((result) => result.json())
       .then((parsedResult) => {
-        console.log("what is result", parsedResult.Products);
+        // console.log("what is result", parsedResult.Products);
         setProducts(parsedResult.Products);
       });
   };
