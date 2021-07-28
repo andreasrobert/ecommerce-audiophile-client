@@ -26,7 +26,7 @@ import {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     return (
-      <form action="http://localhost:4000/admin/login" method="post">
+      <form action="https://ecommerce-audiophile.herokuapp.com/admin/login" method="post">
       <Flex
         minH={'100vh'}
         align={'center'}

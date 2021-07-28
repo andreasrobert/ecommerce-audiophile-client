@@ -11,7 +11,7 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react"
 import { theme } from '../styles/theme'
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql',
+  uri: 'https://ecommerce-audiophile.herokuapp.com/graphql',
   cache: new InMemoryCache()
 });
 

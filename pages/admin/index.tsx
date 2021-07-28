@@ -115,7 +115,7 @@ type Product = {
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   //    console.log(ctx.req.headers)
   let cookie: any = ctx.req ? ctx.req.headers.cookie : null;
-  const fetchRes = await fetch("http://localhost:4000/admin", {
+  const fetchRes = await fetch("https://ecommerce-audiophile.herokuapp.com/admin", {
     method: "GET",
     headers: {
       cookie,
@@ -153,7 +153,7 @@ const Login = () => {
   const [products, setProducts] = useState<Record<string, Product>>({});
 
   const seeProducts = () => {
-    fetch("http://localhost:4000/admin/products", {
+    fetch("https://ecommerce-audiophile.herokuapp.com/admin/products", {
       method: "GET",
       // headers: {
       //     'Accept': 'application/json',

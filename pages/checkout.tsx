@@ -671,7 +671,7 @@ export default function Checkout(props: { products: any }) {
     // console.log("helo");
     // console.log(data);
 
-    fetch("http://localhost:4000/checkout", {
+    fetch("https://ecommerce-audiophile.herokuapp.com//checkout", {
           method: "POST",
           headers: {
               'Accept': 'application/json',
