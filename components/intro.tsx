@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import Link from 'next/link';
-import introImg from '../public/assets/home/desktop/image-hero.jpg'
 
 const Container = styled.div`
 background-color: transparent;
-background-image: url({introImg});
 height: 79vh;
 display: flex;
 color: white;

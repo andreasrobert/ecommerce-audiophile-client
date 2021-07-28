@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { useForm, Controller } from "react-hook-form";
 
 const Container = styled.div`
   padding-left: 7.5vw;
@@ -316,14 +317,26 @@ const Pay = styled.div`
 const Flex = styled.div`
   display: flex;
   justify-content: space-between;
+  &.notMe {
+    display: none !important;
+  }
+
+  &.text {
+    margin-top: 35px;
+  }
   @media (max-width: 720px) {
     flex-direction: column;
+    &.text {
+      margin-top: 15px;
+      font-size: smaller;
+    }
   }
 `;
 
 const FlexEnd = styled.div`
   display: flex;
   justify-content: space-between;
+
   @media (max-width: 720px) {
     flex-direction: column;
   }
@@ -334,7 +347,7 @@ const FlexCol = styled.div`
   flex-direction: column;
 `;
 
-const ItemRadio = styled.div`
+const ItemRadio = styled.label`
   /* font-family: 'Manrope', sans-serif;; */
   font-weight: 700;
   display: flex;
@@ -347,11 +360,15 @@ const ItemRadio = styled.div`
   border-radius: 10px;
   margin-top: 1.5vh;
   padding-left: 20px;
+  cursor: pointer;
   &.payment {
     margin-bottom: 2vh;
     margin-top: 3vh;
   }
 
+  &.me {
+    border: 1px solid #d87d4a;
+  }
   @media (max-width: 920px) {
     height: 6vh;
     width: clamp(5vh, 33vw, 48vh);
@@ -440,9 +457,6 @@ const Receipt = styled.div`
     top: 85px;
     width: 100%;
   }
-
-  
-
 `;
 
 const Checkmark = styled.div`
@@ -561,11 +575,28 @@ const View = styled.div`
   cursor: pointer;
 `;
 
+type FormValues = {
+  name: string;
+  email: string;
+  phone: number;
+  address: string;
+  zipCode: string;
+  city: string;
+  country: string;
+  test: string;
+  radio: string;
+  radio1: string;
+  radio2: string;
+  eNumber: string;
+  ePin: string;
+};
+
 export default function Checkout(props: { products: any }) {
   const [total, setTotal] = useState(0);
   const [products, setProducts] = useState({} as Record<string, any>);
   const [popUpReceipt, setPopUpReceipt] = useState(false);
   const [showAll, setShowAll] = useState(true);
+  const [select, setSelect] = useState("eMoney");
 
   const router = useRouter();
   const pid = router.query;
@@ -604,7 +635,54 @@ export default function Checkout(props: { products: any }) {
   };
 
   const removeAllOrder = () => {
-    window.localStorage.removeItem("cart")
+    window.localStorage.removeItem("cart");
+  };
+
+  const handleSelectChange = (event: any) => {
+    const value = event.target.value;
+    setSelect(value);
+  };
+
+  const handleSelectChange1 = (event: any) => {
+    setSelect("eMoney");
+  };
+
+  const handleSelectChange2 = (event: any) => {
+    setSelect("Cash on Delivery");
+  };
+
+  // const handleOrder = () => {
+  //   fetch("http://localhost:4000/checkout/product", {
+  //     method: "POST",
+  //     headers: {
+  //         'Accept': 'application/json',
+  //         'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(products)
+  //   })
+  // };
+
+  const { register, watch, handleSubmit } = useForm<FormValues>();
+
+  // console.log(watch());
+
+  const handleOrder = (data: any) => {
+
+    // console.log("helo");
+    // console.log(data);
+
+    fetch("http://localhost:4000/checkout", {
+          method: "POST",
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ data, products})
+        }).then(res => res.json().then(result => {
+          if (result.redirectUrl) {
+            window.location.href = result.redirectUrl
+          }
+        })) 
   };
 
   return (
@@ -657,7 +735,8 @@ export default function Checkout(props: { products: any }) {
         </Receipt>
       </div>
 
-      <form action="http://localhost:4000/checkout" method="post">
+      {/* <form action="http://localhost:4000/checkout" method="post"> */}
+      <form onSubmit={handleSubmit(handleOrder)}>
         <Container>
           <CheckIn>
             <Header className="titlecheck">CHECKOUT</Header>
@@ -665,60 +744,73 @@ export default function Checkout(props: { products: any }) {
             <Flex>
               <div>
                 <Header className="title">Name</Header>
-                <Input className="left" name="name" required></Input>
+                <Input className="left" {...register("name")} required></Input>
               </div>
               <div>
                 <Header className="title">Email Address</Header>
-                <Input name="email" required></Input>
+                <Input type="email" {...register("email")} required></Input>
               </div>
             </Flex>
 
             <Header className="title">Phone Number</Header>
-            <Input name="phone" required></Input>
+            <Input type="number" {...register("phone")} required></Input>
 
             <Header className="category">SHIPPING INFO</Header>
             <Header className="title">Address</Header>
-            <Input className="address" name="address" required></Input>
+            <Input className="address" {...register("address")} required></Input>
 
             <Flex>
               <div>
                 <Header className="title">ZIP Code</Header>
-                <Input className="left" name="zip-code" required></Input>
+                <Input className="left" {...register("zipCode")} required></Input>
               </div>
               <div>
                 <Header className="title">City</Header>
-                <Input name="city" required></Input>
+                <Input {...register("city")} required></Input>
               </div>
             </Flex>
 
             <Header className="title">Country</Header>
-            <Input name="country" required></Input>
+            <Input {...register("country")} required></Input>
 
             <Header className="category">PAYMENT DETAILS</Header>
-            <FlexEnd>
+
+
+
+
+
+            {/* <Controller
+  control={control}
+  name="test"
+  defaultValue="eMoney"
+  render={({
+    field: { onChange, value, name }
+  }) => (
+    // <Checkbox
+    //   onChange={onChange}
+    //   checked={value}
+    // />
+    <FlexEnd>
               <Header className="title">Payment Method</Header>
               <FlexCol>
-                {/* <Input className="payment"></Input>
-            <Input></Input> */}
-
-                <ItemRadio className="payment">
+                <ItemRadio className={`payment ${select === "eMoney" ? "me" : "notMe"}`}>
                   <RadioButton
                     type="radio"
-                    name="radio"
-                    value="optionA"
-                    //   checked={select === "optionA"}
-                    //   onChange={event => handleSelectChange(event)}
+                    {...register("radio1")}
+                    value="eMoney"
+                    checked={select === "eMoney"}
+                    onChange={(event) => handleSelectChange(event)}
                   />
                   <RadioButtonLabel />
                   <div>e-Money</div>
                 </ItemRadio>
-                <ItemRadio>
+                <ItemRadio className={`${select === "Cash on Delivery" ? "me" : "notMe"}`}>
                   <RadioButton
                     type="radio"
-                    name="radio"
-                    value="optionB"
-                    //   checked={select === "optionB"}
-                    //   onChange={event => handleSelectChange(event)}
+                    {...register("radio2")}
+                    value="Cash on Delivery"
+                    checked={select === "Cash on Delivery"}
+                    onChange={(event) => handleSelectChange(event)}
                   />
                   <RadioButtonLabel />
                   <div>Cash on Delivery</div>
@@ -726,11 +818,110 @@ export default function Checkout(props: { products: any }) {
               </FlexCol>
             </FlexEnd>
 
-            <Header className="title">e-Money Number</Header>
-            <Input name="e-number"></Input>
 
-            <Header className="title">e-Money PIN</Header>
-            <Input name="e-pin"></Input>
+
+  )}
+/> */}
+
+
+
+
+
+            {/* <FlexEnd>
+              <Header className="title">Payment Method</Header>
+              <FlexCol>
+                <ItemRadio className={`payment ${select === "eMoney" ? "me" : "notMe"}`}>
+                  <RadioButton
+                    type="radio"
+                    {...register("radio1")}
+                    value="eMoney"
+                    checked={select === "eMoney"}
+                    onChange={(event) => handleSelectChange(event)}
+                  />
+                  <RadioButtonLabel />
+                  <div>e-Money</div>
+                </ItemRadio>
+                <ItemRadio className={`${select === "Cash on Delivery" ? "me" : "notMe"}`}>
+                  <RadioButton
+                    type="radio"
+                    {...register("radio2")}
+                    value="Cash on Delivery"
+                    checked={select === "Cash on Delivery"}
+                    onChange={(event) => handleSelectChange(event)}
+                  />
+                  <RadioButtonLabel />
+                  <div>Cash on Delivery</div>
+                </ItemRadio>
+              </FlexCol>
+            </FlexEnd>
+ */}
+
+
+
+
+
+
+
+ <FlexEnd>
+              <Header className="title">Payment Method</Header>
+              <FlexCol>
+                <ItemRadio htmlFor="radio1" className={`payment ${select === "eMoney" ? "me" : "notMe"}` } >
+                  <RadioButton
+                    type="radio"
+                    id="radio1"
+                    {...register("radio")}
+                    value={select}
+                    checked={select === "eMoney"}
+                    onChange={(event) => handleSelectChange1(event)}
+                  />
+                  <RadioButtonLabel />
+                  <div>e-Money</div>
+                </ItemRadio>
+                <ItemRadio htmlFor="radio2" className={`${select === "Cash on Delivery" ? "me" : "notMe"}`}>
+                  <RadioButton
+                    type="radio"
+                    id="radio2"
+                    {...register("radio")}
+                    value={select}
+                    checked={select === "Cash on Delivery"}
+                    onChange={(event) => handleSelectChange2(event)}
+                  />
+                  <RadioButtonLabel />
+                  <div>Cash on Delivery</div>
+                </ItemRadio>
+              </FlexCol>
+            </FlexEnd>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <Flex className={`${select === "eMoney" ? "me" : "notMe"}`}>
+              <div>
+                <Header className="title">e-Money Number</Header>
+                <Input className="left" {...register("eNumber")}></Input>
+              </div>
+              <div>
+                <Header className="title">e-Money PIN</Header>
+                <Input type="password" {...register("ePin")} autoComplete="off"></Input>
+              </div>
+            </Flex>
+            <Flex className={`text ${select === "Cash on Delivery" ? "me" : "notMe"}`}>
+              The ‘Cash on Delivery’ option enables you to pay in cash when our delivery courier
+              arrives at your residence. Just make sure your address is correct so that your order
+              will not be cancelled.
+            </Flex>
           </CheckIn>
           <Summary>
             <Cart>
@@ -771,6 +962,7 @@ export default function Checkout(props: { products: any }) {
                   <Other className="total">GRAND TOTAL</Other>
                   <Price className="grand">${grand}</Price>
                 </MinorContainer>
+                {/* <CheckOut onClick={handleOrder} type="submit" value="CONTINUE & PAY"></CheckOut> */}
                 <CheckOut type="submit" value="CONTINUE & PAY"></CheckOut>
               </div>
             </Cart>

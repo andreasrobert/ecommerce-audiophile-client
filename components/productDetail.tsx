@@ -135,12 +135,12 @@ function ProductDetail(props:{data:any}) {
             
             {props.data.includes.map((stats:any)=>{
                     return (
-                      <>
+                      
                      <Accessory key={stats.item}>
                      <Numbers key={`${stats.item}-number`}>{stats.quantity}x</Numbers>
                       {stats.item}
-                      </Accessory>          
-                      </>
+                      </Accessory>           
+                      
                     
                   );
                 })}

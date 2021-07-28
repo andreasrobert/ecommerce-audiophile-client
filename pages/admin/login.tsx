@@ -26,6 +26,7 @@ import {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     return (
+      <form action="http://localhost:4000/admin/login" method="post">
       <Flex
         minH={'100vh'}
         align={'center'}
@@ -46,7 +47,7 @@ import {
               
               <FormControl id="password">
                 <FormLabel>Password</FormLabel>
-                <Input type="password" />
+                <Input name="password" type="password" />
               </FormControl>
               <Stack spacing={10}>
                 <Stack
@@ -65,7 +66,9 @@ import {
                   color={'white'}
                   _hover={{
                     bg: 'blue.500',
-                  }}>
+                  }}
+                  type="submit"
+                  >
                   Sign in
                 </Button>
               </Stack>
@@ -90,7 +93,7 @@ import {
           </ModalContent>
         </Modal>
       </Flex>
-      
+      </form>
     );
   }
 
