@@ -113,21 +113,33 @@ type Product = {
 //   }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-//    console.log(ctx.req.headers) 
-   let cookie: any = ctx.req ? ctx.req.headers.cookie : null
-   fetch("http://localhost:4000/admin", {
-      method: "GET",
-      headers: {
-          cookie
-      }
-    }).then(async (res) => {
-        console.log(res)
-        const result = await res.json();
-        console.log(result.result);
-      });
+  //    console.log(ctx.req.headers)
+  let cookie: any = ctx.req ? ctx.req.headers.cookie : null;
+  const fetchRes = await fetch("http://localhost:4000/admin", {
+    method: "GET",
+    headers: {
+      cookie,
+    },
+  });
 
+  try {
+    const res = await fetchRes.json();
+    console.log(res);
 
-  if (true) {
+    if (res.result === false) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: "/admin/login",
+        },
+        props: {},
+      };
+    } else {
+      return {
+        props: {},
+      };
+    }
+  } catch (err) {
     return {
       redirect: {
         permanent: false,
@@ -211,6 +223,8 @@ const Login = () => {
             }}>
             Customer
           </Flex>
+          
+          <Button variant="solid">Hello</Button>
         </Flex>
 
         <Flex h="100%" bg="gray.50" alignItems="center" justifyContent="center">
