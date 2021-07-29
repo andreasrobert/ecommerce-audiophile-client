@@ -37,10 +37,11 @@ import { useState } from 'react';
         // We convert the React state to JSON and send it as the POST body
         body: `password=${password}`
       }).then(function(response) {
-        console.log(response)
+        // console.log(response)
         return response.json();
       }).then(result => {
-        document.cookie = `token=${result.token};max-age=500000;domain=ecommerce-audiophile.herokuapp.com`;
+        console.log(result);
+        document.cookie = `token=${result.token};max-age=500000;domain=ecommerce-audiophile.netlify.app`;
       });
   }
 
