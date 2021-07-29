@@ -45,7 +45,7 @@ import { useRouter } from 'next/router'
         return response.json();
       }).then(result => {
         document.cookie = `token=${result.token};max-age=200;domain=ecommerce-audiophile.netlify.app`;
-        router.push('https://ecommerce-audiophile.netlify.app/admin')
+        window.location.href = 'https://ecommerce-audiophile.netlify.app/admin'
       });
   }
 
