@@ -668,10 +668,10 @@ export default function Checkout(props: { products: any }) {
 
   const handleOrder = (data: any) => {
 
-    // console.log("helo");
+    console.log("helo");
     // console.log(data);
 
-    fetch("https://ecommerce-audiophile.herokuapp.com//checkout", {
+    fetch("https://ecommerce-audiophile.herokuapp.com/checkout", {
           method: "POST",
           headers: {
               'Accept': 'application/json',
