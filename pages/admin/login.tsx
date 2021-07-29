@@ -21,12 +21,32 @@ import {
     ModalHeader,
     ModalCloseButton,
   } from '@chakra-ui/react';
+import { useState } from 'react';
   
   export default function SimpleCard() {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const [password, setPassword] = useState('');
+
+    const handleSubmit = (event: any) => {
+      event.preventDefault();
+      fetch('https://ecommerce-audiophile.herokuapp.com/admin/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        },
+        // We convert the React state to JSON and send it as the POST body
+        body: `password=${password}`
+      }).then(function(response) {
+        console.log(response)
+        return response.json();
+      }).then(result => {
+        document.cookie = `token=${result.token};max-age=500000;domain=ecommerce-audiophile.herokuapp.com`;
+      });
+  }
+
 
     return (
-      <form action="https://ecommerce-audiophile.herokuapp.com/admin/login" method="post">
+      <form onSubmit={handleSubmit}>
       <Flex
         minH={'100vh'}
         align={'center'}
@@ -47,7 +67,7 @@ import {
               
               <FormControl id="password">
                 <FormLabel>Password</FormLabel>
-                <Input name="password" type="password" />
+                <Input name="password" type="password" value={password} onChange={e => setPassword(e.target.value)} />
               </FormControl>
               <Stack spacing={10}>
                 <Stack
