@@ -22,10 +22,15 @@ import {
     ModalCloseButton,
   } from '@chakra-ui/react';
 import { useState } from 'react';
+import { useRouter } from 'next/router'
+
   
   export default function SimpleCard() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [password, setPassword] = useState('');
+
+    const router = useRouter()
+
 
     const handleSubmit = (event: any) => {
       event.preventDefault();
@@ -37,11 +42,10 @@ import { useState } from 'react';
         // We convert the React state to JSON and send it as the POST body
         body: `password=${password}`
       }).then(function(response) {
-        // console.log(response)
         return response.json();
       }).then(result => {
-        console.log(result);
         document.cookie = `token=${result.token};max-age=500000;domain=ecommerce-audiophile.netlify.app`;
+        router.push('admin')
       });
   }
 
