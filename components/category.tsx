@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
-import styles from '../styles/Home.module.css';
 import headphoneImg from '../public/assets/desktop/image-headphones.png';
 import speakerImg from '../public/assets/desktop/image-speakers.png';
 import earphoneImg from '../public/assets/desktop/image-earphones.png';

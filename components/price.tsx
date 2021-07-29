@@ -2,11 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
-import testImgD from '../public/assets/desktop/image-product.jpg'
-import testImgT from '../public/assets/tablet/image-product.jpg'
-import testImgM from '../public/assets/mobile/image-product.jpg'
-
-const testImg1 ="image-product.jpg"
 
 const Container = styled.div`
 background-color: white;

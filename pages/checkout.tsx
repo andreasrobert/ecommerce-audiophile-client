@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 const Container = styled.div`
   padding-left: 7.5vw;
@@ -601,6 +601,7 @@ export default function Checkout(props: { products: any }) {
   const router = useRouter();
   const pid = router.query;
 
+
   useEffect(() => {
     setProducts(JSON.parse(window.localStorage.getItem("cart") || "{}"));
     if (pid.foo === "success") {
@@ -668,7 +669,7 @@ export default function Checkout(props: { products: any }) {
 
   const handleOrder = (data: any) => {
 
-    console.log("helo");
+    // console.log("helo");
     // console.log(data);
 
     fetch("https://ecommerce-audiophile.herokuapp.com/checkout", {
@@ -680,7 +681,8 @@ export default function Checkout(props: { products: any }) {
           body: JSON.stringify({ data, products})
         }).then(res => res.json().then(result => {
           if (result.redirectUrl) {
-            window.location.href = result.redirectUrl
+            router.push('/checkout?foo=success')
+            
           }
         })) 
   };
