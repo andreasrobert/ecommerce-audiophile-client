@@ -44,7 +44,7 @@ import { useRouter } from 'next/router'
       }).then(function(response) {
         return response.json();
       }).then(result => {
-        document.cookie = `token=${result.token};max-age=400;domain=ecommerce-audiophile.netlify.app`;
+        document.cookie = `token=${result.token};max-age=200;domain=ecommerce-audiophile.netlify.app`;
         router.push('/admin')
       });
   }
