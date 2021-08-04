@@ -9,9 +9,14 @@ import { LOAD_FOR_CATEGORY } from '../../graphql/queries';
   
   
 const Headphones = () =>{
-    const { loading, error, data } = useQuery(LOAD_FOR_CATEGORY,{ variables: {Category: "headphones"}});
+    const { loading, error, data, refetch } = useQuery(LOAD_FOR_CATEGORY,{ variables: {Category: "headphones"}});
     if (loading) return null;
-    if (error) return `Error! ${error}`;
+    if (error) {
+        if (error.message.toLocaleLowerCase().includes('timeout')) {
+            refetch();
+        }
+        return `Error! ${error}`;
+    }
     var order = 0; 
 
 
