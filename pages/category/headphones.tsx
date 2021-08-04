@@ -7,7 +7,6 @@ import WhatIsAudiophile from "../../components/whatIsAudiophile";
 import { useQuery } from "@apollo/client";
 import { LOAD_FOR_CATEGORY } from '../../graphql/queries';
   
-  
 const Headphones = () =>{
     const { loading, error, data, refetch } = useQuery(LOAD_FOR_CATEGORY,{ variables: {Category: "headphones"}});
     if (loading) return null;

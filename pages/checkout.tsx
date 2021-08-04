@@ -601,7 +601,6 @@ export default function Checkout(props: { products: any }) {
   const router = useRouter();
   const pid = router.query;
 
-
   useEffect(() => {
     setProducts(JSON.parse(window.localStorage.getItem("cart") || "{}"));
     if (pid.foo === "success") {
@@ -609,7 +608,8 @@ export default function Checkout(props: { products: any }) {
       return;
     }
   }, [pid.foo]);
-
+  
+  let counter = 0;
   let totNumb = 0;
   let amount = 0;
   let vat = (total * 20) / 100;
@@ -629,7 +629,6 @@ export default function Checkout(props: { products: any }) {
     setProducts(JSON.parse(window.localStorage.getItem("cart") || "{}"));
   };
 
-  let counter = 0;
 
   const handleView = () => {
     setShowAll((prev) => !prev);
@@ -639,39 +638,12 @@ export default function Checkout(props: { products: any }) {
     window.localStorage.removeItem("cart");
   };
 
-  const handleSelectChange = (event: any) => {
-    const value = event.target.value;
-    setSelect(value);
+  const handleSelectChange= (e: number) => {
+    e === 1 ? setSelect("eMoney") : setSelect("Cash on Delivery");
   };
 
-  const handleSelectChange1 = (event: any) => {
-    setSelect("eMoney");
-  };
-
-  const handleSelectChange2 = (event: any) => {
-    setSelect("Cash on Delivery");
-  };
-
-  // const handleOrder = () => {
-  //   fetch("http://localhost:4000/checkout/product", {
-  //     method: "POST",
-  //     headers: {
-  //         'Accept': 'application/json',
-  //         'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify(products)
-  //   })
-  // };
-
-  const { register, watch, handleSubmit } = useForm<FormValues>();
-
-  // console.log(watch());
-
+  const { register, handleSubmit } = useForm<FormValues>();
   const handleOrder = (data: any) => {
-
-    // console.log("helo");
-    // console.log(data);
-
     fetch("https://ecommerce-audiophile.herokuapp.com/checkout", {
           method: "POST",
           headers: {
@@ -682,7 +654,6 @@ export default function Checkout(props: { products: any }) {
         }).then(res => res.json().then(result => {
           if (result.redirectUrl) {
             router.push('/checkout?foo=success')
-            
           }
         })) 
   };
@@ -737,7 +708,6 @@ export default function Checkout(props: { products: any }) {
         </Receipt>
       </div>
 
-      {/* <form action="http://localhost:4000/checkout" method="post"> */}
       <form onSubmit={handleSubmit(handleOrder)}>
         <Container>
           <CheckIn>
@@ -777,94 +747,7 @@ export default function Checkout(props: { products: any }) {
 
             <Header className="category">PAYMENT DETAILS</Header>
 
-
-
-
-
-            {/* <Controller
-  control={control}
-  name="test"
-  defaultValue="eMoney"
-  render={({
-    field: { onChange, value, name }
-  }) => (
-    // <Checkbox
-    //   onChange={onChange}
-    //   checked={value}
-    // />
-    <FlexEnd>
-              <Header className="title">Payment Method</Header>
-              <FlexCol>
-                <ItemRadio className={`payment ${select === "eMoney" ? "me" : "notMe"}`}>
-                  <RadioButton
-                    type="radio"
-                    {...register("radio1")}
-                    value="eMoney"
-                    checked={select === "eMoney"}
-                    onChange={(event) => handleSelectChange(event)}
-                  />
-                  <RadioButtonLabel />
-                  <div>e-Money</div>
-                </ItemRadio>
-                <ItemRadio className={`${select === "Cash on Delivery" ? "me" : "notMe"}`}>
-                  <RadioButton
-                    type="radio"
-                    {...register("radio2")}
-                    value="Cash on Delivery"
-                    checked={select === "Cash on Delivery"}
-                    onChange={(event) => handleSelectChange(event)}
-                  />
-                  <RadioButtonLabel />
-                  <div>Cash on Delivery</div>
-                </ItemRadio>
-              </FlexCol>
-            </FlexEnd>
-
-
-
-  )}
-/> */}
-
-
-
-
-
-            {/* <FlexEnd>
-              <Header className="title">Payment Method</Header>
-              <FlexCol>
-                <ItemRadio className={`payment ${select === "eMoney" ? "me" : "notMe"}`}>
-                  <RadioButton
-                    type="radio"
-                    {...register("radio1")}
-                    value="eMoney"
-                    checked={select === "eMoney"}
-                    onChange={(event) => handleSelectChange(event)}
-                  />
-                  <RadioButtonLabel />
-                  <div>e-Money</div>
-                </ItemRadio>
-                <ItemRadio className={`${select === "Cash on Delivery" ? "me" : "notMe"}`}>
-                  <RadioButton
-                    type="radio"
-                    {...register("radio2")}
-                    value="Cash on Delivery"
-                    checked={select === "Cash on Delivery"}
-                    onChange={(event) => handleSelectChange(event)}
-                  />
-                  <RadioButtonLabel />
-                  <div>Cash on Delivery</div>
-                </ItemRadio>
-              </FlexCol>
-            </FlexEnd>
- */}
-
-
-
-
-
-
-
- <FlexEnd>
+          <FlexEnd>
               <Header className="title">Payment Method</Header>
               <FlexCol>
                 <ItemRadio htmlFor="radio1" className={`payment ${select === "eMoney" ? "me" : "notMe"}` } >
@@ -874,7 +757,7 @@ export default function Checkout(props: { products: any }) {
                     {...register("radio")}
                     value={select}
                     checked={select === "eMoney"}
-                    onChange={(event) => handleSelectChange1(event)}
+                    onChange={() => handleSelectChange(1)}
                   />
                   <RadioButtonLabel />
                   <div>e-Money</div>
@@ -886,7 +769,7 @@ export default function Checkout(props: { products: any }) {
                     {...register("radio")}
                     value={select}
                     checked={select === "Cash on Delivery"}
-                    onChange={(event) => handleSelectChange2(event)}
+                    onChange={() => handleSelectChange(2)}
                   />
                   <RadioButtonLabel />
                   <div>Cash on Delivery</div>
