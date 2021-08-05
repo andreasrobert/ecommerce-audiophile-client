@@ -13,8 +13,8 @@ const Headphones = () =>{
     if (error) {
         if (error.message.toLocaleLowerCase().includes('timeout')) {
             refetch();
-        }
-        return `Error! ${error}`;
+        }else{return `Error! ${error}`;}
+        
     }
     var order = 0; 
 
