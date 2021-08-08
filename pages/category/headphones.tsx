@@ -6,14 +6,15 @@ import Product from "../../components/product";
 import WhatIsAudiophile from "../../components/whatIsAudiophile";
 import { useQuery } from "@apollo/client";
 import { LOAD_FOR_CATEGORY } from '../../graphql/queries';
+import { Spinner } from "@chakra-ui/react";
   
 const Headphones = () =>{
     const { loading, error, data, refetch } = useQuery(LOAD_FOR_CATEGORY,{ variables: {Category: "headphones"}});
-    if (loading) return null;
+
     if (error) {
         if (error.message.toLocaleLowerCase().includes('timeout')) {
             refetch();
-        }else{return `Error! ${error}`;}
+        }else {return `Error! ${error}`;}
         
     }
     var order = 0; 
@@ -23,7 +24,7 @@ const Headphones = () =>{
         <>
                 <Navbar></Navbar>
                 <Title title="HEADPHONES"></Title>
-                {data.productsbyCategory.map((product:any)=>{
+                {loading ? <Spinner></Spinner> : data?.productsbyCategory.map((product:any)=>{
                     order = order+1;
                     return <Product key={product._id} data={product} order={order}></Product>
                 })}
