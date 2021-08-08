@@ -8,7 +8,12 @@ import HomeMiddle from '../components/homeMiddle'
 
 
 export default function Home() {
-
+  const runServer = () => {
+    fetch("https://ecommerce-audiophile.herokuapp.com/", {
+          method: "GET"
+        }) 
+  };
+  runServer();
   
 
   return (

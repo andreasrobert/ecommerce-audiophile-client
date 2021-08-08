@@ -1,34 +1,13 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## audiophile - client side
 
-## Getting Started
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b9f4cc97-5eca-4276-9ac3-49b412365ca7/deploy-status)](https://app.netlify.com/sites/ecommerce-audiophile/deploys)
 
-First, run the development server:
+[ecommerce-audiophile.netlify.app](https://ecommerce-audiophile.netlify.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+See also the [server side](https://github.com/andreasrobert/ecommerce-audiophile-server)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This website has an admin page which fetch to the backend for authentication, just go to /admin. Although the admin page isn't really polished yet.
+The list of products and its detail are stored at mongoDB while the images are stored at claudinary. To fetch the data I used graphql.
+When a user add a product to the cart it will be stored to the local storage which then is used by the react state so the user can see his/her cart.
+When a user click payment button the user data will be stored to the database.(don't worry you don't have to pay anything or even fill the checkout form with valid data :) this is just a demo project)
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.tsx`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
