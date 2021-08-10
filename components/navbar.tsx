@@ -7,10 +7,7 @@ import styles from '../styles/Home.module.css'
 import Link from 'next/link'
 import Category from './category';
 
-
-
 const Container = styled.div`
-/* z-index: ; */
 background-color: black;
 height: 85px;
 display: flex;
@@ -24,7 +21,6 @@ position: relative;
     bottom: 0px;
     z-index: 10;
     content: "";
-    
     width: 100%;
     height: 1px;
     background-color: #35343a;
@@ -78,7 +74,6 @@ border-bottom-right-radius: 8px;
     display:none;
   }
 
-
 `;
 
 const DropContainer = styled.div`
@@ -87,8 +82,6 @@ margin-top: -50px;
   height: 120vh;
   margin-top: 0px;
 }
-
-
 `;
 
 const BackDrop = styled.div`
@@ -156,7 +149,6 @@ justify-content: space-between;
 const Item = styled.div`
 width: 100%;
 height: 78px;
-/* padding: 20px; */
 display: flex;
 justify-content: space-between;
 align-items: center;

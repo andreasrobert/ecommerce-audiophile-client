@@ -1,4 +1,3 @@
-import styles from '../styles/Home.module.css'
 import Navbar from '../components/navbar'
 import Intro from '../components/intro'
 import Footer from '../components/footer'
@@ -18,14 +17,12 @@ export default function Home() {
 
   return (
     <>
-    {/* <div className={styles.container}> */}
       <Navbar></Navbar>
       <Intro></Intro>
       <Category></Category>
       <HomeMiddle></HomeMiddle>
       <WhatIsAudiophile></WhatIsAudiophile>
       <Footer></Footer>
-    {/* </div> */}
     </>
   )
 }

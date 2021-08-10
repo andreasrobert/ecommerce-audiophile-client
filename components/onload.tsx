@@ -27,7 +27,12 @@ function OnLoad() {
   return (
     <>
       <Container>
-        <Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="orange.500" size="xl"></Spinner>
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="orange.500"
+          size="xl"></Spinner>
       </Container>
     </>
   );

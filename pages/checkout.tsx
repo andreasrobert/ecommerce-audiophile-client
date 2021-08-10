@@ -778,20 +778,6 @@ export default function Checkout(props: { products: any }) {
             </FlexEnd>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             <Flex className={`${select === "eMoney" ? "me" : "notMe"}`}>
               <div>
                 <Header className="title">e-Money Number</Header>
@@ -847,7 +833,6 @@ export default function Checkout(props: { products: any }) {
                   <Other className="total">GRAND TOTAL</Other>
                   <Price className="grand">${grand}</Price>
                 </MinorContainer>
-                {/* <CheckOut onClick={handleOrder} type="submit" value="CONTINUE & PAY"></CheckOut> */}
                 <CheckOut type="submit" value="CONTINUE & PAY"></CheckOut>
               </div>
             </Cart>
