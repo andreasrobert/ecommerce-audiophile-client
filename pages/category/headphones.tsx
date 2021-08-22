@@ -10,17 +10,15 @@ import { LOAD_FOR_CATEGORY } from "../../graphql/queries";
 import { useEffect } from "react";
 
 const Headphones = () => {
-  const [loadCat, { loading, error, data }] = useLazyQuery(
-    LOAD_FOR_CATEGORY,
-    { variables: { Category: "headphones" } },
-  );
+  const [loadCat, { loading, error, data }] = useLazyQuery(LOAD_FOR_CATEGORY, {
+    variables: { Category: "headphones" },
+  });
 
   useEffect(() => {
     if (error || !loading || !data) {
       loadCat({ variables: { Category: "headphones" } });
     }
   }, [error, loading, data, loadCat]);
-
 
   if (error) {
     if (error.message.toLocaleLowerCase().includes("timeout")) {

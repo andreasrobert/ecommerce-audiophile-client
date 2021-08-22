@@ -174,7 +174,6 @@ const Cart = styled.div`
 const Item = styled.div`
   width: 100%;
   height: 78px;
-  /* padding: 20px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -348,7 +347,6 @@ const FlexCol = styled.div`
 `;
 
 const ItemRadio = styled.label`
-  /* font-family: 'Manrope', sans-serif;; */
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -608,7 +606,7 @@ export default function Checkout(props: { products: any }) {
       return;
     }
   }, [pid.foo]);
-  
+
   let counter = 0;
   let totNumb = 0;
   let amount = 0;
@@ -629,7 +627,6 @@ export default function Checkout(props: { products: any }) {
     setProducts(JSON.parse(window.localStorage.getItem("cart") || "{}"));
   };
 
-
   const handleView = () => {
     setShowAll((prev) => !prev);
   };
@@ -638,24 +635,26 @@ export default function Checkout(props: { products: any }) {
     window.localStorage.removeItem("cart");
   };
 
-  const handleSelectChange= (e: number) => {
+  const handleSelectChange = (e: number) => {
     e === 1 ? setSelect("eMoney") : setSelect("Cash on Delivery");
   };
 
   const { register, handleSubmit } = useForm<FormValues>();
   const handleOrder = (data: any) => {
     fetch("https://ecommerce-audiophile.herokuapp.com/checkout", {
-          method: "POST",
-          headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ data, products})
-        }).then(res => res.json().then(result => {
-          if (result.redirectUrl) {
-            router.push('/checkout?foo=success')
-          }
-        })) 
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ data, products }),
+    }).then((res) =>
+      res.json().then((result) => {
+        if (result.redirectUrl) {
+          router.push("/checkout?foo=success");
+        }
+      }),
+    );
   };
 
   return (
@@ -747,10 +746,12 @@ export default function Checkout(props: { products: any }) {
 
             <Header className="category">PAYMENT DETAILS</Header>
 
-          <FlexEnd>
+            <FlexEnd>
               <Header className="title">Payment Method</Header>
               <FlexCol>
-                <ItemRadio htmlFor="radio1" className={`payment ${select === "eMoney" ? "me" : "notMe"}` } >
+                <ItemRadio
+                  htmlFor="radio1"
+                  className={`payment ${select === "eMoney" ? "me" : "notMe"}`}>
                   <RadioButton
                     type="radio"
                     id="radio1"
@@ -762,7 +763,9 @@ export default function Checkout(props: { products: any }) {
                   <RadioButtonLabel />
                   <div>e-Money</div>
                 </ItemRadio>
-                <ItemRadio htmlFor="radio2" className={`${select === "Cash on Delivery" ? "me" : "notMe"}`}>
+                <ItemRadio
+                  htmlFor="radio2"
+                  className={`${select === "Cash on Delivery" ? "me" : "notMe"}`}>
                   <RadioButton
                     type="radio"
                     id="radio2"
@@ -776,7 +779,6 @@ export default function Checkout(props: { products: any }) {
                 </ItemRadio>
               </FlexCol>
             </FlexEnd>
-
 
             <Flex className={`${select === "eMoney" ? "me" : "notMe"}`}>
               <div>

@@ -1,19 +1,7 @@
 import {
-  Center,
-  Box,
   Flex,
   Container,
-  VStack,
-  useDisclosure,
-  RadioGroup,
-  Radio,
-  Stack,
-  Drawer,
-  DrawerOverlay,
-  DrawerBody,
   Button,
-  DrawerHeader,
-  DrawerContent,
   Text,
   Editable,
   EditableInput,
@@ -28,12 +16,7 @@ type Product = {
   slug: string;
   name: string;
   cart: string;
-  // image: {
-  //     mobile: string,
-  //     tablet: string,
-  //     desktop: string,
-  //     tabletCat: string
-  // },
+
   category: string;
   new: boolean;
   price: number;
@@ -45,75 +28,9 @@ type Product = {
       item: String;
     },
   ];
-  // gallery:{
-  //     first: {
-  //         mobile: string,
-  //         tablet: string,
-  //         desktop: string
-  //     },
-  //     second: {
-  //         mobile: string,
-  //         tablet: string,
-  //         desktop: string
-  //     },
-  //     third: {
-  //         mobile: string,
-  //         tablet: string,
-  //         desktop: string
-  //     }
-  // },
-  //     others: [
-  //         {
-  //         slug: String,
-  //         name: String,
-  //         image: {
-  //             mobile: String,
-  //             tablet: String,
-  //             desktop: String
-  //             }
-  //         },
-  //         {
-  //         slug: String,
-  //         name: String,
-  //         image: {
-  //             mobile: String,
-  //             tablet: String,
-  //             desktop: String
-  //             }
-  //         },
-  //         {
-  //         slug: String,
-  //         name: String,
-  //         image: {
-  //             mobile: String,
-  //             tablet: String,
-  //             desktop: String
-  //             }
-  //         }
-
-  // ]
 };
 
-// export async function getServerSideProps(_context: any) {
-//     const res = await fetch(`https://localhost:3000`)
-//     const token = await res.json()
-
-//     if (!token) {
-//       return {
-//         redirect: {
-//             destination: '/admin/login',
-//             permanent: false,
-//           }
-//       }
-//     }
-
-//     return {
-//       props: {}, // will be passed to the page component as props
-//     }
-//   }
-
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  //    console.log(ctx.req.headers)
   let cookie: any = ctx.req ? ctx.req.headers.cookie : null;
   const fetchRes = await fetch("https://ecommerce-audiophile.herokuapp.com/admin", {
     method: "GET",
@@ -155,18 +72,12 @@ const Login = () => {
   const seeProducts = () => {
     fetch("https://ecommerce-audiophile.herokuapp.com/admin/products", {
       method: "GET",
-      // headers: {
-      //     'Accept': 'application/json',
-      //     'Content-Type': 'application/json'
-      // }
     })
       .then((result) => result.json())
       .then((parsedResult) => {
-        // console.log("what is result", parsedResult.Products);
         setProducts(parsedResult.Products);
       });
   };
-  // console.log(JSON.stringify(parsedResult))
 
   return (
     <>
@@ -222,7 +133,7 @@ const Login = () => {
             }}>
             Customer
           </Flex>
-          
+
           <Button variant="solid">Hello</Button>
         </Flex>
 
@@ -296,13 +207,6 @@ const Login = () => {
           </Flex>
         </Flex>
       </Container>
-
-      {/* <VStack spacing="24px">
-                {['hello', 'this', 'is', 'mickey'].map(item => (
-                    <Button key={'a'} colorScheme={Math.random() < 0.5 ? 'blue' : 'red'}>{item}</Button>
-                ))}
-                <Flex borderRadius="24px" bg="green">Hello</Flex>
-            </VStack> */}
     </>
   );
 };

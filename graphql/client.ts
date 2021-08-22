@@ -5,7 +5,7 @@ import { createHttpLink } from "apollo-link-http";
 const TIMEOUT = 6000;
 const timeoutLink = new ApolloLinkTimeout(TIMEOUT);
 const httpLink = createHttpLink({
-  uri: 'https://ecommerce-audiophile.herokuapp.com/graphql',
+  uri: "https://ecommerce-audiophile.herokuapp.com/graphql",
 });
 
 const timeoutHttpLink = timeoutLink.concat(httpLink as any);

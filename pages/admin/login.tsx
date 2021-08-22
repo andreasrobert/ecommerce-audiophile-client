@@ -1,85 +1,79 @@
 import {
-    Flex,
-    Box,
-    FormControl,
-    FormLabel,
-    Input,
-    Checkbox,
-    Stack,
-    Link,
-    Button,
-    Heading,
-    Text,
-    useColorModeValue,
-    Tooltip,
-    useDisclosure,
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalFooter,
-    ModalBody,
-    ModalHeader,
-    ModalCloseButton,
-  } from '@chakra-ui/react';
-import { useState } from 'react';
-import { useRouter } from 'next/router'
+  Flex,
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  Checkbox,
+  Stack,
+  Link,
+  Button,
+  Heading,
+  Text,
+  useColorModeValue,
+  Tooltip,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalFooter,
+  ModalBody,
+  ModalHeader,
+  ModalCloseButton,
+} from "@chakra-ui/react";
+import { useState } from "react";
 
-  
-  export default function SimpleCard() {
-    const { isOpen, onOpen, onClose } = useDisclosure()
-    const [password, setPassword] = useState('');
+export default function SimpleCard() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [password, setPassword] = useState("");
 
-    const router = useRouter()
-
-
-    const handleSubmit = (event: any) => {
-      event.preventDefault();
-      fetch('https://ecommerce-audiophile.herokuapp.com/admin/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-        },
-        // We convert the React state to JSON and send it as the POST body
-        body: `password=${password}`
-      }).then(function(response) {
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    fetch("https://ecommerce-audiophile.herokuapp.com/admin/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      },
+      body: `password=${password}`,
+    })
+      .then(function (response) {
         return response.json();
-      }).then(result => {
+      })
+      .then((result) => {
         document.cookie = `token=${result.token};max-age=200;domain=ecommerce-audiophile.netlify.app`;
-        window.location.href = 'https://ecommerce-audiophile.netlify.app/admin'
+        window.location.href = "https://ecommerce-audiophile.netlify.app/admin";
       });
-  }
+  };
 
-
-    return (
-      <form onSubmit={handleSubmit}>
+  return (
+    <form onSubmit={handleSubmit}>
       <Flex
-        minH={'100vh'}
-        align={'center'}
-        justify={'center'}
-        bg={useColorModeValue('gray.50', 'gray.800')}>
-        <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-          <Stack align={'center'}>
-            <Heading fontSize={'4xl'}>Password is required</Heading>
-            <Text fontSize={'lg'} color={'gray.600'}>
-            </Text>
+        minH={"100vh"}
+        align={"center"}
+        justify={"center"}
+        bg={useColorModeValue("gray.50", "gray.800")}>
+        <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+          <Stack align={"center"}>
+            <Heading fontSize={"4xl"}>Password is required</Heading>
+            <Text fontSize={"lg"} color={"gray.600"}></Text>
           </Stack>
-          <Box
-            rounded={'lg'}
-            bg={useColorModeValue('white', 'gray.700')}
-            boxShadow={'lg'}
-            p={8}>
+          <Box rounded={"lg"} bg={useColorModeValue("white", "gray.700")} boxShadow={"lg"} p={8}>
             <Stack spacing={4}>
-              
               <FormControl id="password">
                 <FormLabel>Password</FormLabel>
-                <Input name="password" type="password" value={password} onChange={e => setPassword(e.target.value)} />
+                <Input
+                  name="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </FormControl>
               <Stack spacing={10}>
                 <Stack
-                  direction={{ base: 'column', sm: 'row' }}
-                  align={'start'}
-                  justify={'space-between'}>
-                <Flex></Flex>
+                  direction={{ base: "column", sm: "row" }}
+                  align={"start"}
+                  justify={"space-between"}>
+                  <Flex></Flex>
                   <Tooltip label={`try "admin"`} aria-label="A tooltip">
                  {/* eslint-disable-next-line react/no-unescaped-entities */}
                   <Link color={'blue.400'} onClick={onOpen}>Don't know password?</Link>
@@ -109,7 +103,7 @@ import { useRouter } from 'next/router'
             {/* eslint-disable-next-line react/no-unescaped-entities */}
             <ModalBody textAlign="center"> This website is just a demo, if you're just browsing and want to see the admin page (without any of the functionality) you can type in the password "admin" and sign in
             </ModalBody>
-  
+
             <ModalFooter alignSelf="center">
               <Button colorScheme="blue" mr={3} onClick={onClose}>
                 Close
@@ -118,9 +112,6 @@ import { useRouter } from 'next/router'
           </ModalContent>
         </Modal>
       </Flex>
-      </form>
-    );
-  }
-
-
-  
+    </form>
+  );
+}
