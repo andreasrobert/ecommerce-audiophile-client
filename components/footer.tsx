@@ -126,10 +126,18 @@ function Footer() {
           </Link>
 
           <ContainRight>
+          <Link href="/" passHref>
             <Header className="start">HOME</Header>
+            </Link>
+            <Link href="/category/headphones" passHref>
             <Header>HEADPHONES</Header>
+            </Link>
+            <Link href="/category/speakers" passHref>
             <Header>SPEAKER</Header>
+            </Link>
+            <Link href="/category/earphones" passHref>
             <Header className="end">EARPHONES</Header>
+            </Link>
           </ContainRight>
         </ContainUp>
 
